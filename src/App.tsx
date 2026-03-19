@@ -4,8 +4,14 @@ import { loadSettings, saveSettings } from './lib/storage'
 import SettingsPanel from './components/SettingsPanel'
 import UploadPanel from './components/UploadPanel'
 import EmbedOutput from './components/EmbedOutput'
+import PasswordGate from './components/PasswordGate'
+
+function isAuthenticated() {
+  return sessionStorage.getItem('frami_auth') === '1'
+}
 
 export default function App() {
+  const [authed, setAuthed] = useState(isAuthenticated)
   // loadSettings passed as initializer function — runs only on first render
   const [settings, setSettings] = useState<KalturaSettings>(loadSettings)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
@@ -44,6 +50,10 @@ export default function App() {
 
   function handleReset() {
     setUploadStatus({ kind: 'idle' })
+  }
+
+  if (!authed) {
+    return <PasswordGate onUnlock={() => setAuthed(true)} />
   }
 
   return (
