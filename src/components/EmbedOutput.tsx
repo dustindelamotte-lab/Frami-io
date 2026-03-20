@@ -7,16 +7,16 @@ interface Props {
 }
 
 function buildIframeEmbed(r: UploadResult): string {
-  const base = `${r.serviceUrl.replace(/\/$/, '')}/p/${r.partnerId}/sp/${r.partnerId}00/embedIframeJs/uiconf_id/${r.uiConfId}/partner_id/${r.partnerId}`
+  const base = `${r.serviceUrl.replace(/\/$/, '')}/p/${r.partnerId}/sp/${r.subPartnerId}/embedIframeJs/partner_id/${r.partnerId}`
   return `<iframe src="${base}?iframeembed=true&playerId=kaltura_player&entry_id=${r.entryId}&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen></iframe>`
 }
 
 function buildJsEmbed(r: UploadResult): string {
-  const base = `${r.serviceUrl.replace(/\/$/, '')}/p/${r.partnerId}/sp/${r.partnerId}00/embedIframeJs/uiconf_id/${r.uiConfId}/partner_id/${r.partnerId}`
+  const base = `${r.serviceUrl.replace(/\/$/, '')}/p/${r.partnerId}/sp/${r.subPartnerId}/embedIframeJs/partner_id/${r.partnerId}`
   return (
     `<script src="${base}"></script>` +
     `<div id="kaltura_player_${r.entryId}"></div>` +
-    `<script>kWidget.embed({targetId:"kaltura_player_${r.entryId}",wid:"_${r.partnerId}",uiconf_id:${r.uiConfId},entry_id:"${r.entryId}",flashvars:{streamerType:"auto"}});</script>`
+    `<script>kWidget.embed({targetId:"kaltura_player_${r.entryId}",wid:"_${r.partnerId}",entry_id:"${r.entryId}",flashvars:{streamerType:"auto"}});</script>`
   )
 }
 
@@ -127,8 +127,8 @@ export default function EmbedOutput({ status, onReset }: Props) {
       <h3>IDs</h3>
       <div className="result-fields">
         <FieldRow label="Partner ID" value={r.partnerId} />
+        <FieldRow label="Sub Partner ID" value={r.subPartnerId} />
         <FieldRow label="Entry ID" value={r.entryId} />
-        <FieldRow label="UI Conf ID" value={r.uiConfId} />
       </div>
 
       <h3>Embed Codes</h3>

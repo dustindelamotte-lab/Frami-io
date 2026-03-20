@@ -5,8 +5,9 @@ const STORAGE_KEY = 'kaltura_settings'
 const DEFAULT_SETTINGS: KalturaSettings = {
   serviceUrl: '',
   partnerId: '',
+  subPartnerId: '',
   adminSecret: '',
-  uiConfId: '',
+  userSecret: '',
 }
 
 export function loadSettings(): KalturaSettings {
@@ -17,8 +18,9 @@ export function loadSettings(): KalturaSettings {
     return {
       serviceUrl: parsed.serviceUrl ?? '',
       partnerId: parsed.partnerId ?? '',
+      subPartnerId: parsed.subPartnerId ?? '',
       adminSecret: parsed.adminSecret ?? '',
-      uiConfId: parsed.uiConfId ?? '',
+      userSecret: parsed.userSecret ?? '',
     }
   } catch {
     return { ...DEFAULT_SETTINGS }

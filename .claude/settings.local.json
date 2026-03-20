@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api:*)",
+      "Bash(brew install:*)",
+      "Bash(sw_vers)",
+      "Read(//private/tmp/**)",
+      "Bash(unzip -o gh.zip -d gh_extracted)",
+      "Bash(sudo cp:*)",
+      "Bash(chmod +x /usr/local/bin/gh)",
+      "Bash(gh --version)",
+      "Bash(gh auth:*)"
+    ]
+  }
+}

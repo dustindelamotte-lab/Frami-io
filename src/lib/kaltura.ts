@@ -132,8 +132,8 @@ export async function uploadToKaltura(
 
   return {
     partnerId: settings.partnerId,
+    subPartnerId: settings.subPartnerId,
     entryId,
-    uiConfId: settings.uiConfId,
     serviceUrl: settings.serviceUrl,
   }
 }

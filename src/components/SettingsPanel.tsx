@@ -10,7 +10,8 @@ interface Props {
 
 export default function SettingsPanel({ isOpen, initialSettings, onSave, onClose }: Props) {
   const [form, setForm] = useState<KalturaSettings>(initialSettings)
-  const [showSecret, setShowSecret] = useState(false)
+  const [showAdminSecret, setShowAdminSecret] = useState(false)
+  const [showUserSecret, setShowUserSecret] = useState(false)
   const [error, setError] = useState('')
 
   // Sync form whenever the panel re-opens
@@ -18,7 +19,8 @@ export default function SettingsPanel({ isOpen, initialSettings, onSave, onClose
     if (isOpen) {
       setForm(initialSettings)
       setError('')
-      setShowSecret(false)
+      setShowAdminSecret(false)
+      setShowUserSecret(false)
     }
   }, [isOpen, initialSettings])
 
@@ -32,8 +34,8 @@ export default function SettingsPanel({ isOpen, initialSettings, onSave, onClose
   }
 
   function handleSave() {
-    const { serviceUrl, partnerId, adminSecret, uiConfId } = form
-    if (!serviceUrl.trim() || !partnerId.trim() || !adminSecret.trim() || !uiConfId.trim()) {
+    const { serviceUrl, partnerId, subPartnerId, adminSecret, userSecret } = form
+    if (!serviceUrl.trim() || !partnerId.trim() || !subPartnerId.trim() || !adminSecret.trim() || !userSecret.trim()) {
       setError('All fields are required.')
       return
     }
@@ -46,8 +48,9 @@ export default function SettingsPanel({ isOpen, initialSettings, onSave, onClose
     onSave({
       serviceUrl: serviceUrl.trim(),
       partnerId: partnerId.trim(),
+      subPartnerId: subPartnerId.trim(),
       adminSecret: adminSecret.trim(),
-      uiConfId: uiConfId.trim(),
+      userSecret: userSecret.trim(),
     })
   }
 
@@ -93,11 +96,21 @@ export default function SettingsPanel({ isOpen, initialSettings, onSave, onClose
           autoComplete="off"
         />
 
+        <label htmlFor="subPartnerId">Sub Partner ID</label>
+        <input
+          id="subPartnerId"
+          type="text"
+          placeholder="12345600"
+          value={form.subPartnerId}
+          onChange={handleChange('subPartnerId')}
+          autoComplete="off"
+        />
+
         <label htmlFor="adminSecret">Admin Secret</label>
         <div className="password-field">
           <input
             id="adminSecret"
-            type={showSecret ? 'text' : 'password'}
+            type={showAdminSecret ? 'text' : 'password'}
             placeholder="Your KMC admin secret"
             value={form.adminSecret}
             onChange={handleChange('adminSecret')}
@@ -106,22 +119,32 @@ export default function SettingsPanel({ isOpen, initialSettings, onSave, onClose
           <button
             type="button"
             className="btn-ghost"
-            onClick={() => setShowSecret(s => !s)}
-            aria-label={showSecret ? 'Hide secret' : 'Show secret'}
+            onClick={() => setShowAdminSecret(s => !s)}
+            aria-label={showAdminSecret ? 'Hide admin secret' : 'Show admin secret'}
           >
-            {showSecret ? 'Hide' : 'Show'}
+            {showAdminSecret ? 'Hide' : 'Show'}
           </button>
         </div>
 
-        <label htmlFor="uiConfId">UI Conf ID</label>
-        <input
-          id="uiConfId"
-          type="text"
-          placeholder="23448234"
-          value={form.uiConfId}
-          onChange={handleChange('uiConfId')}
-          autoComplete="off"
-        />
+        <label htmlFor="userSecret">User Secret</label>
+        <div className="password-field">
+          <input
+            id="userSecret"
+            type={showUserSecret ? 'text' : 'password'}
+            placeholder="Your KMC user secret"
+            value={form.userSecret}
+            onChange={handleChange('userSecret')}
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            className="btn-ghost"
+            onClick={() => setShowUserSecret(s => !s)}
+            aria-label={showUserSecret ? 'Hide user secret' : 'Show user secret'}
+          >
+            {showUserSecret ? 'Hide' : 'Show'}
+          </button>
+        </div>
 
         {error && <p className="error-text">{error}</p>}
 

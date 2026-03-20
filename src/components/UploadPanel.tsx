@@ -27,8 +27,9 @@ export default function UploadPanel({
   const settingsComplete = !!(
     settings.serviceUrl &&
     settings.partnerId &&
+    settings.subPartnerId &&
     settings.adminSecret &&
-    settings.uiConfId
+    settings.userSecret
   )
 
   function validate(): boolean {

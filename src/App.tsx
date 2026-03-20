@@ -22,8 +22,9 @@ export default function App() {
   const settingsConfigured = !!(
     settings.serviceUrl &&
     settings.partnerId &&
+    settings.subPartnerId &&
     settings.adminSecret &&
-    settings.uiConfId
+    settings.userSecret
   )
 
   function handleSaveSettings(newSettings: KalturaSettings) {

@@ -1,14 +1,15 @@
 export interface KalturaSettings {
-  serviceUrl: string   // e.g. "https://www.kaltura.com"
-  partnerId: string    // numeric as string, e.g. "12345"
-  adminSecret: string  // KMC admin secret
-  uiConfId: string     // player UI conf ID
+  serviceUrl: string    // e.g. "https://www.kaltura.com"
+  partnerId: string     // numeric as string, e.g. "12345"
+  subPartnerId: string  // sub-partner / sub-account ID
+  adminSecret: string   // KMC admin secret
+  userSecret: string    // KMC user secret
 }
 
 export interface UploadResult {
   partnerId: string
+  subPartnerId: string
   entryId: string
-  uiConfId: string
   serviceUrl: string
 }
 
